@@ -105,7 +105,7 @@ CREATE TABLE Fact_Ventas
 	TimeID INT NOT NULL,
 	Total_Venta MONEY NOT NULL,
 
-	CONSTRAINT PK_Ventas PRIMARY KEY(SalesOrderID,CustomerID,ProductID, TerritoryID,TimeID),
+	CONSTRAINT PK_Ventas PRIMARY KEY(SalesOrderID,CustomerID,ProductID,TerritoryID, StoreID,TimeID),
 
 	CONSTRAINT FK_Ventas_Cli FOREIGN KEY(CustomerID) REFERENCES Dim_Cliente(CustomerID),
 	CONSTRAINT FK_Ventas_Pro FOREIGN KEY(ProductID) REFERENCES Dim_Producto(ProductID),
