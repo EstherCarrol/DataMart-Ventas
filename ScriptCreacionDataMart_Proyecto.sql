@@ -6,9 +6,7 @@ GO
 CREATE TABLE Dim_Cliente 
 (
 	CustomerID INT,
-	Name_Cli NVARCHAR(100) NOT NULL,
-	Last_Name NVARCHAR(50),
-
+	FullName_Cli NVARCHAR(100) NOT NULL,
 	CONSTRAINT PK_Cliente PRIMARY KEY(CustomerID)
 )
 GO
@@ -42,10 +40,8 @@ GO
 CREATE TABLE Dim_Ubicacion
 (
 	TerritoryID INT,
-	CountryRegionCode NVARCHAR(4) NOT NULL,
 	Name_Territory NVARCHAR(50) NOT NULL,
-	Group_Territory NVARCHAR(50),
-
+	
 	CONSTRAINT PK_Ubicacion PRIMARY KEY(TerritoryID)
 
 )
@@ -69,10 +65,8 @@ GO
 CREATE TABLE Dim_Empleado
 (
 	EmployeeID INT,
-	Name_Empl NVARCHAR(100) NOT NULL,
-	Last_Name_Empl NVARCHAR(50),
+	FullName_Empl NVARCHAR(100) NOT NULL,
 	Gender NCHAR(1) NOT NULL,
-	Job_tittle NVARCHAR(50),
 	
 	CONSTRAINT PK_Empleado PRIMARY KEY(EmployeeID)
 )
@@ -83,7 +77,7 @@ GO
 /*Creación de la dimensión Tiempo*/
 CREATE TABLE Dim_Tiempo
 (
-	TimeID INT IDENTITY(1,1),
+	TimeID DATE,
 	Anio INT NOT NULL,
 	Trimestre INT NOT NULL,
 	Mes INT NOT NULL,
@@ -98,14 +92,14 @@ CREATE TABLE Fact_Ventas
 (
 	SalesOrderID INT,
 	CustomerID INT NOT NULL,
+	EmployeeID INT,
 	ProductID INT NOT NULL,
 	TerritoryID INT NOT NULL,
+	TimeID DATE NOT NULL,
 	StoreID INT NOT NULL,
-	EmployeeID INT,
-	TimeID INT NOT NULL,
 	Total_Venta MONEY NOT NULL,
 
-	CONSTRAINT PK_Ventas PRIMARY KEY(SalesOrderID,CustomerID,ProductID,TerritoryID, StoreID,TimeID),
+	CONSTRAINT PK_Ventas PRIMARY KEY(SalesOrderID,CustomerID,EmployeeID,ProductID,TerritoryID, TimeID,StoreID),
 
 	CONSTRAINT FK_Ventas_Cli FOREIGN KEY(CustomerID) REFERENCES Dim_Cliente(CustomerID),
 	CONSTRAINT FK_Ventas_Pro FOREIGN KEY(ProductID) REFERENCES Dim_Producto(ProductID),
