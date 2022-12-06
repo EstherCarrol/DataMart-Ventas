@@ -45,6 +45,7 @@ CREATE TABLE Dim_Ubicacion
 	CONSTRAINT PK_Ubicacion PRIMARY KEY(TerritoryID)
 
 )
+
 GO
 
 
@@ -53,7 +54,7 @@ GO
 CREATE TABLE Dim_Tienda
 (
 	StoreID INT,
-	Name_Store NVARCHAR(4) NOT NULL,
+	Name_Store NVARCHAR(50) NOT NULL,
 	
 	CONSTRAINT PK_Tienda PRIMARY KEY(StoreID)
 
